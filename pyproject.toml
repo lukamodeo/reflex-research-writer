@@ -34,7 +34,7 @@ all = [
 
 
 [project.scripts]
-reflextion-ui = "reflex_research_writer.ui.app:main"
+reflex-ui = "reflex_research_writer.ui.app:main"
 
 
 [tool.setuptools.packages.find]

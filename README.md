@@ -1,10 +1,12 @@
 # Reflex Research Writer
 
-> **Autonomous AI agent for creating analytical, verified Dossiers through web research and iterative critical review.**
+> **Autonomous AI agent for creating analytical, verified Dossiers through web research and iterative critical review, using any LLM exposed through an OpenAI-compatible API.**
 
-Reflex Research Writer is a **LangGraph-based Reflexion agent** that autonomously researches a topic, analyzes and verifies information from web sources, produces an analytical Dossier, and iteratively improves it through a rigorous self-critique loop. 
+Reflex Research Writer is a **LangGraph-based Reflexion agent** that autonomously researches a topic, analyzes and verifies information from web sources, produces an analytical Dossier, and iteratively improves it through a rigorous self-critique loop.
 
-Designed to combat LLM hallucinations, the agent grounds all its claims in retrieved web context and acts as a strict academic reviewer of its own work before outputting the final document.
+The agent is **LLM-provider agnostic** and can use any model exposed through an **OpenAI-compatible API endpoint**, including locally hosted models served by inference engines such as **vLLM** or **llama.cpp**.
+
+Designed to reduce unsupported or hallucinated claims, the agent grounds its output in retrieved web context and acts as a strict academic reviewer of its own work before producing the final document.
 
 ![Reflex Research Writer UI](https://z-cdn-media.chatglm.cn/files/a66bb3b6-080d-48c1-8403-f0e30d1782fe.png?auth_key=1888172596-04adf88e9f774c328d36ff5081cdc6e2-0-03598a1ad964f4f56fb9bcda284d449a)
 
@@ -13,8 +15,9 @@ Designed to combat LLM hallucinations, the agent grounds all its claims in retri
 ## ✨ Features
 
 * 🤖 **Autonomous research workflow** powered by LangGraph state machines
+* 🧩 **LLM Provider Agnostic:** Supports any LLM exposed through an OpenAI-compatible API, including locally hosted models
 * 🔎 **Pluggable web research** using configurable search providers (Tavily, SerpAPI, DuckDuckGo)
-* 🧠 **Planner → Researcher → Writer → Critique → Editor** workflow
+* 🧠 **Planner → Researcher (from Planner) → Writer → Critique → Researcher (On Critique) → Editor** workflow
 * 🔄 **Iterative Reflexion** through successive rounds of critical self-review
 * ✅ **Anti-Hallucination Grounding:** Strictly verifies every claim against retrieved web context
 * 📝 Generates highly structured, analytical **Dossiers** with numbered academic citations
@@ -71,7 +74,7 @@ The agent is implemented using **LangGraph** and follows a Reflexion-style itera
 1. **Planner:** Analyzes the requested topic and the initial web research findings to create a structured **blueprint** for the Dossier. This blueprint defines the provisional main title and the specific section titles (e.g., `## 1. Title`, `## 2. Title`) that the Writer must follow. It establishes the research objectives and guiding questions for each section without pre-emptively writing the arguments.
 2. **Research From Planner:** Translates the blueprint into targeted web search queries in the desired language and gathers relevant sources to fill the context window.
 3. **Writer:** Uses the research findings and the Planner's blueprint to produce the initial Dossier. The Writer is strictly forbidden from using its parametric memory for unverified facts and must adhere exactly to the structural titles defined in the blueprint.
-4. **Critique:** Acts as a strict academic reviewer (technically it is the Reflection node). It evaluates the draft against the research context, flags hallucinations, identifies unsupported claims, and outputs a quality score along with specific revision instructions.
+4. **Critique:** Acts as a strict academic reviewer (technically it is a Reflection node). It evaluates the draft against the research context, flags hallucinations, identifies unsupported claims, and outputs a quality score along with specific revision instructions.
 5. **Research On Critique:** Performs targeted web research *only* to verify specific flagged claims or fill explicit knowledge gaps identified by the Critique node.
 6. **Editor:** The Writer node is reused as an editor to revise and improve the Dossier based on the critique and new research. It continues to use the original blueprint as the structural foundation, performing surgical edits to the existing text rather than full rewrites, ensuring valid citations are preserved.
 
@@ -96,7 +99,7 @@ The final Dossier is a highly structured Markdown document (exportable to PDF) f
 Instead of generating a final document in a single pass, the agent iteratively refines its output through a rigorous self-correction loop.
 
 ```text
-Blueprint  →  Research  →  Draft  →  Critique  →  Targeted Research  →  Revision  →  Improved Dossier
+Blueprint  →  Planner Research  →  Draft  →  Critique  →  Targeted Research  →  Revision  →  Improved Dossier
 ```
 
 Each revision gives the agent an opportunity to identify and address weaknesses in the previous version. This approach is designed to maximize:
@@ -143,7 +146,7 @@ Critique
         Final Dossier
 ```
 
-In the following example, the agent reaches a **9/10 evaluation** during the review process. Since the quality threshold has already been reached, the agent exits the Reflexion loop without executing the remaining available review cycles.
+In the screenshot example, the agent reaches a **9/10 evaluation** during the review process. Since the quality threshold has already been reached, the agent exits the Reflexion loop without executing the remaining available review cycles.
 
 This allows the workflow to balance **quality and efficiency**:
 
@@ -174,7 +177,7 @@ The search subsystem is designed around a common search-engine abstraction, allo
 
 **Currently supported search providers:**
 * Tavily
-* SerpAPI
+* Google SerpAPI
 * DuckDuckGo
 
 **Context Window Management:**
@@ -216,7 +219,8 @@ The application provides a Gradio web interface where the user can:
 ## 📋 Requirements
 
 * Python 3.11+
-* An OpenAI API key (or compatible local LLM endpoint via OpenAI API standard)
+* An **LLM exposed through an OpenAI-compatible API endpoint** (cloud or locally hosted)
+* An API key, where required by the selected LLM endpoint
 * API credentials for the selected search provider(s)
 
 ---
@@ -264,16 +268,116 @@ python -m pip install -e ".[duckduckgo]"
 
 ## 🔑 Configuration
 
-Create a `.env` file in the project root based on the `.env.example` file.
+Create a `.env` file in the project root based on the `.env.example` file:
 
-Example:
-```env
-OPENAI_API_KEY=your_openai_api_key
+```bash
+cp .env.example .env
+```
+
+Then configure the LLM and search provider settings.
+
+### LLM configuration
+
+The project is **LLM-provider agnostic** and supports any LLM exposed through an **OpenAI-compatible API endpoint**.
+
+The endpoint can be provided by a hosted API service or by a locally deployed inference server such as **vLLM** or **llama.cpp**.
+
+Configure the following variables:
+
+```dotenv
+OPENAI_API_KEY=your_api_key
+OPENAI_BASE_URL=https://your-openai-compatible-endpoint/v1
+OPENAI_MODEL=your_model_name
+```
+
+**The `OPENAI_*` variable names refer to the OpenAI-compatible API interface and do not imply that the model must be hosted by OpenAI.**
+
+The project has been specifically tested with **Qwen3.6-27B**, quantized to **INT4** and served through **vLLM** using an OpenAI-compatible API.
+
+For example:
+
+```dotenv
+OPENAI_API_KEY=dummy-key
+OPENAI_BASE_URL=http://localhost:8000/v1
+OPENAI_MODEL=Qwen3.6-27B
+```
+Other OpenAI-compatible LLM providers and inference servers can be used by changing `OPENAI_BASE_URL`, `OPENAI_MODEL`, and, when required, `OPENAI_API_KEY`.
+
+The exact values depend on the LLM provider or inference server being used.
+
+#### Supported LLM setups
+
+The agent can connect to any LLM exposing an OpenAI-compatible API, including:
+
+* Cloud-hosted LLM APIs
+* Locally hosted models served through **vLLM**
+* Locally hosted models served through **llama.cpp**
+* Other inference servers or gateways implementing the OpenAI-compatible API
+
+The project has been specifically tested with:
+
+* **Qwen3.6-27B INT4 via vLLM**
+* **OpenAI GPT-4o via the OpenAI API**
+
+### Search engine configuration
+
+Select the search provider with `SEARCH_ENGINE`:
+
+```dotenv
+SEARCH_ENGINE=tavily
+```
+
+Supported values are:
+
+* `tavily`
+* `serpapi`
+* `duckduckgo`
+
+Configure the corresponding API key when required:
+
+```dotenv
 TAVILY_API_KEY=your_tavily_api_key
 SERPAPI_API_KEY=your_serpapi_api_key
 ```
 
-*Only configure the API keys required by the search providers you intend to use. Never commit your `.env` file to version control.*
+*Only configure the API keys required by the search providers you intend to use.*
+
+Tavily requires `TAVILY_API_KEY`, SerpAPI requires `SERPAPI_API_KEY`, while DuckDuckGo does not require an API key.
+
+### Concurrency
+
+The maximum number of concurrent operations (default is `5`) can be configured with:
+
+```dotenv
+CONCURRENCY_LIMIT=5
+```
+
+
+#### Example: OpenAI + Tavily
+```env
+OPENAI_API_KEY=your_openai_api_key
+OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_MODEL=gpt-4o
+
+SEARCH_ENGINE=tavily
+TAVILY_API_KEY=your_tavily_api_key
+SERPAPI_API_KEY=
+
+CONCURRENCY_LIMIT = 5
+```
+
+#### Example: Local Qwen3.6-27B via vLLM + Tavily
+```env
+OPENAI_API_KEY=dummy-key
+OPENAI_BASE_URL=http://127.0.0.1:8000/v1
+OPENAI_MODEL=Qwen3.6-27B
+
+SEARCH_ENGINE=tavily
+TAVILY_API_KEY=your_tavily_api_key
+SERPAPI_API_KEY=
+
+CONCURRENCY_LIMIT = 5
+```
 
 ---
 
@@ -282,7 +386,7 @@ SERPAPI_API_KEY=your_serpapi_api_key
 After installation and configuration, start the Gradio UI with:
 
 ```bash
-reflection-ui
+reflex-ui
 ```
 
 *(Alternatively, the application can be started directly through its Python entry point if required by your development setup).*
@@ -388,7 +492,7 @@ This project is built using:
 
 ## 📌 Project Status
 
-**Status:** Early development / experimental
+**Status:** Experimental / Proof of Concept
 
 This project is primarily intended to explore autonomous research, Reflexion-style agent architectures, web-grounded generation, and iterative LLM-based document refinement.
 ```
