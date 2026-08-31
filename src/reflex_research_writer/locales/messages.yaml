@@ -1,0 +1,165 @@
+it:
+  planning:
+    start: "🧠\uFE0F Pianificazione della strategia di ricerca..."
+    end: "✔️\uFE0F Pianificazione completata in {duration:.2f} sec"
+
+  searching:
+    start: "🌐\uFE0F Esecuzione del piano di ricerca..."
+    end: "✔️\uFE0F Ricerca completata in {duration:.2f} sec (trovate complessivamente {len_results} fonti)"
+
+  generating:
+    start: "✍️\uFE0F {revision_number}ª Stesura della bozza..."
+    end: "✔️\uFE0F Stesura completata in {duration:.2f} sec (generati {len_draft} caratteri)"
+
+  revising:
+    start: "🔍\uFE0F {revision_number}ª Revisione critica della bozza..."
+    end: "✔️\uFE0F Revisione completata in {duration:.2f} sec (Valutazione: {critique_score}/10)"
+
+  integrating:
+    start: "🔎\uFE0F Integrazione della critica tramite ulteriore ricerca..."
+    end: "✔️\uFE0F Integrazione completata in {duration:.2f} sec (trovate complessivamente {len_results} fonti)"
+
+  finalizing:
+    start: "✍️\uFE0F Stesura FINALE..."
+    end: "✔️\uFE0F Stesura FINALE completata in {duration:.2f} sec (generati {len_draft} caratteri)"
+
+  evaluating:
+    start: "🎯\uFE0F Valutazione FINALE..."
+    end: "✔️\uFE0F Valutazione FINALE completata in {duration:.2f} sec (Valutazione: {critique_score}/10)"
+
+  exiting:
+    exit: "🏆\uFE0F Raggiunto un punteggio di {critique_score}/10 — Non sono necessarie ulteriori revisioni"
+
+
+en:
+  planning:
+    start: "🧠\uFE0F Planning the research strategy..."
+    end: "✔️\uFE0F Research planning completed in {duration:.2f} sec"
+
+  searching:
+    start: "🌐\uFE0F Executing the research plan..."
+    end: "✔️\uFE0F Research completed in {duration:.2f} sec ({len_results} sources found in total)"
+
+  generating:
+    start: "✍️\uFE0F Drafting version {revision_number}..."
+    end: "✔️\uFE0F Draft completed in {duration:.2f} sec ({len_draft} characters generated)"
+
+  revising:
+    start: "🔍\uFE0F Critically reviewing draft version {revision_number}..."
+    end: "✔️\uFE0F Review completed in {duration:.2f} sec (Score: {critique_score}/10)"
+
+  integrating:
+    start: "🔎\uFE0F Integrating the critique through additional research..."
+    end: "✔️\uFE0F Integration completed in {duration:.2f} sec ({len_results} sources found in total)"
+
+  finalizing:
+    start: "✍️\uFE0F FINAL drafting..."
+    end: "✔️\uFE0F FINAL draft completed in {duration:.2f} sec ({len_draft} characters generated)"
+
+  evaluating:
+    start: "🎯\uFE0F FINAL evaluation..."
+    end: "✔️\uFE0F FINAL evaluation completed in {duration:.2f} sec (Score: {critique_score}/10)"
+
+  exiting:
+    exit: "🏆\uFE0F A score of {critique_score}/10 has been reached — no further revisions are needed"
+
+
+fr:
+  planning:
+    start: "🧠\uFE0F Planification de la stratégie de recherche..."
+    end: "✔️\uFE0F Planification terminée en {duration:.2f} s"
+
+  searching:
+    start: "🌐\uFE0F Exécution du plan de recherche..."
+    end: "✔️\uFE0F Recherche terminée en {duration:.2f} s ({len_results} sources trouvées au total)"
+
+  generating:
+    start: "✍️\uFE0F Rédaction de la version {revision_number}..."
+    end: "✔️\uFE0F Rédaction terminée en {duration:.2f} s ({len_draft} caractères générés)"
+
+  revising:
+    start: "🔍\uFE0F Révision critique de la version {revision_number}..."
+    end: "✔️\uFE0F Révision terminée en {duration:.2f} s (Évaluation : {critique_score}/10)"
+
+  integrating:
+    start: "🔎\uFE0F Intégration de la critique grâce à des recherches supplémentaires..."
+    end: "✔️\uFE0F Intégration terminée en {duration:.2f} s ({len_results} sources trouvées au total)"
+
+  finalizing:
+    start: "✍️\uFE0F Rédaction FINALE..."
+    end: "✔️\uFE0F Rédaction FINALE terminée en {duration:.2f} s ({len_draft} caractères générés)"
+
+  evaluating:
+    start: "🎯\uFE0F Évaluation FINALE..."
+    end: "✔️\uFE0F Évaluation FINALE terminée en {duration:.2f} s (Évaluation : {critique_score}/10)"
+
+  exiting:
+    exit: "🏆\uFE0F Un score de {critique_score}/10 a été atteint — aucune révision supplémentaire n'est nécessaire"
+
+
+de:
+  planning:
+    start: "🧠\uFE0F Planung der Recherchestrategie..."
+    end: "✔️\uFE0F Rechercheplanung in {duration:.2f} Sek. abgeschlossen"
+
+  searching:
+    start: "🌐\uFE0F Ausführung des Rechercheplans..."
+    end: "✔️\uFE0F Recherche in {duration:.2f} Sek. abgeschlossen (insgesamt {len_results} Quellen gefunden)"
+
+  generating:
+    start: "✍️\uFE0F Erstellung von Entwurf {revision_number}..."
+    end: "✔️\uFE0F Entwurf in {duration:.2f} Sek. fertiggestellt ({len_draft} Zeichen generiert)"
+
+  revising:
+    start: "🔍\uFE0F Kritische Überprüfung von Entwurf {revision_number}..."
+    end: "✔️\uFE0F Überprüfung in {duration:.2f} Sek. abgeschlossen (Bewertung: {critique_score}/10)"
+
+  integrating:
+    start: "🔎\uFE0F Integration der Kritik durch zusätzliche Recherche..."
+    end: "✔️\uFE0F Integration in {duration:.2f} Sek. abgeschlossen (insgesamt {len_results} Quellen gefunden)"
+
+  finalizing:
+    start: "✍️\uFE0F FINALE Ausarbeitung..."
+    end: "✔️\uFE0F FINALE Ausarbeitung in {duration:.2f} Sek. abgeschlossen ({len_draft} Zeichen generiert)"
+
+  evaluating:
+    start: "🎯\uFE0F FINALE Bewertung..."
+    end: "✔️\uFE0F FINALE Bewertung in {duration:.2f} Sek. abgeschlossen (Bewertung: {critique_score}/10)"
+
+  exiting:
+    exit: "🏆\uFE0F Eine Bewertung von {critique_score}/10 wurde erreicht — keine weiteren Überarbeitungen erforderlich"
+
+
+es:
+  planning:
+    start: "🧠\uFE0F Planificación de la estrategia de investigación..."
+    end: "✔️\uFE0F Planificación completada en {duration:.2f} s"
+
+  searching:
+    start: "🌐\uFE0F Ejecución del plan de investigación..."
+    end: "✔️\uFE0F Investigación completada en {duration:.2f} s ({len_results} fuentes encontradas en total)"
+
+  generating:
+    start: "✍️\uFE0F Redacción de la versión {revision_number}..."
+    end: "✔️\uFE0F Redacción completada en {duration:.2f} s ({len_draft} caracteres generados)"
+
+  revising:
+    start: "🔍\uFE0F Revisión crítica de la versión {revision_number}..."
+    end: "✔️\uFE0F Revisión completada en {duration:.2f} s (Evaluación: {critique_score}/10)"
+
+  integrating:
+    start: "🔎\uFE0F Integración de la crítica mediante investigación adicional..."
+    end: "✔️\uFE0F Integración completada en {duration:.2f} s ({len_results} fuentes encontradas en total)"
+
+  finalizing:
+    start: "✍️\uFE0F Redacción FINAL..."
+    end: "✔️\uFE0F Redacción FINAL completada en {duration:.2f} s ({len_draft} caracteres generados)"
+
+  evaluating:
+    start: "🎯\uFE0F Evaluación FINAL..."
+    end: "✔️\uFE0F Evaluación FINAL completada en {duration:.2f} s (Evaluación: {critique_score}/10)"
+
+  exiting:
+    exit: "🏆\uFE0F Se ha alcanzado una puntuación de {critique_score}/10 — no son necesarias más revisiones"
+
+

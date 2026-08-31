@@ -1,0 +1,82 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.gradio-container {
+    height: 100vh !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+.main, .wrap, .contain, .contain > .column {
+    min-height: 0 !important;
+}
+
+#confirm-row {
+    display: none;
+}
+
+.control-col {
+    row-gap: 10px;
+}
+
+
+.alert-col {
+    gap: 4px;
+}
+
+.alert-head {
+    text-align: center;
+}
+
+.output-row {
+    flex-grow: 1 !important;
+    min-height: 0 !important;
+}
+
+.markdown-box-container {
+    height: 100% !important;
+    min-height: 0 !important;
+    background-color: var(--input-background-fill);
+    border: 1px solid var(--border-color-primary);
+    border-radius: var(--input-radius);
+    box-shadow: var(--input-shadow);
+}
+
+.block.markdown-full {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+div:has(> .markdown-full.prose) {
+    flex-grow: 1 !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.markdown-full.prose {
+    flex-grow: 1 !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    padding: 1.2rem 1rem;
+}
+
+.markdown-full.prose p {
+    margin-top:0.1em;
+    margin-bottom:0.1em;
+}
+
+.markdown-full.prose hr {
+    margin-top:0.2em;
+    margin-bottom:0;
+}
+
+.markdown-full .prose p + hr + p {
+  line-height: 0.5em;
+}

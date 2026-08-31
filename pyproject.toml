@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "reflex-research-writer"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+dependencies = [
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.3.0",
+    "python-dotenv>=1.0.0",
+    "markdown-pdf",
+    "gradio",
+    "langgraph",
+    "langchain-openai",
+    "langchain-core",
+]
+
+
+[project.optional-dependencies]
+# Specific client for search engine providers
+tavily = ["tavily"]
+google = ["serpapi"]
+duckduckgo = ["duckduckgo-search"]
+# "all" group to install all search engine providers
+all = [
+    "tavily",
+    "serpapi",
+    "duckduckgo-search",
+]
+
+
+[project.scripts]
+reflextion-ui = "reflex_research_writer.ui.app:main"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+[tool.setuptools.package-data]
+reflex_research_writer = [
+    "locales/*.yaml",
+    "ui/assets/*.css",
+    "ui/assets/*.ttf",
+]
