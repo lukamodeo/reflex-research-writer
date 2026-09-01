@@ -8,7 +8,17 @@ The agent is **LLM-provider agnostic** and can use any model exposed through an 
 
 Designed to reduce unsupported or hallucinated claims, the agent grounds its output in retrieved web context and acts as a strict academic reviewer of its own work before producing the final document.
 
-![Reflex Research Writer UI](https://z-cdn-media.chatglm.cn/files/a66bb3b6-080d-48c1-8403-f0e30d1782fe.png?auth_key=1888172596-04adf88e9f774c328d36ff5081cdc6e2-0-03598a1ad964f4f56fb9bcda284d449a)
+![Reflex Research Writer UI](examples/screenshots/zenith-watches-history-execution.png)
+
+## 📄 Example Output
+
+The following PDF is the actual Dossier generated during the execution shown in the UI screenshot above.
+
+**Topic:** *History of Zenith Watches*
+
+**Output language:** *Italian*
+
+👉 [View the generated Dossier](examples/zenith-watches-history-dossier-it.pdf)
 
 ---
 
