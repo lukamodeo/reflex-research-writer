@@ -57,10 +57,6 @@ class UIStringLocalizer:
 
         self._ui_strings = _ui_strings_obj[self._language]
 
-    # @classmethod
-    # def available_languages(cls) -> List[str]:
-    #     ui_strings_obj = _load_yaml_file("ui_strings.yaml")
-    #     return ui_strings_obj.keys()
 
     def get(self, key: str)-> str:
         return self._ui_strings.get(key, key)
@@ -76,9 +72,11 @@ class UIStringLocalizer:
             for code, name in self._ui_strings.get("languages", {}).items()
         ]
 
+
     @property
     def available_languages(self)-> List[str]:
         return self._available_languages
+
 
     @property
     def current_language(self) -> str:

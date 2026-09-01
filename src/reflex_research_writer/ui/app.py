@@ -104,7 +104,6 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
                             **status_message["params"],
                         )
                         if status_message["phase"] == "exit":
-                            #status_history.append(f"<br><hr/><hr/>{message}<hr/><hr/><br>")
                             status_history.append(f"\n\n&nbsp;\n\n---\n\n---\n\n{message}\n\n---\n\n---\n\n&nbsp;\n\n")
                         else:
                             status_history.append(message)
@@ -127,7 +126,6 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
                         final_evaluation = final_message["evaluation"]
                         final_score = final_message["score"]
 
-                        #appendix = f"## {gui_translator['evaluation'].format(final_score)}\n\n&nbsp;\n\n{final_evaluation}"
                         appendix = f"## {gui.get('evaluation').format(final_score)}\n\n&nbsp;\n\n{final_evaluation}"
                         content = f"{final_draft}\n\n&nbsp;\n\n&nbsp;\n\n---\n\n&nbsp;\n\n{appendix}"
                         pdf_content = [final_draft, appendix]
@@ -145,8 +143,6 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
 
         except asyncio.CancelledError:
             # This triggers when the user clicks the Stop button and confirms with Yes button
-            #status_history.append(f"<br><hr/><hr/>{gui_translator['error.user_stop']}<hr/><hr/><br>")
-            #status_history.append(f"\n\n---\n\n---\n\n{gui_translator['error.user_stop']}\n\n---\n\n---\n\n")
             status_history.append(f"\n\n&nbsp;\n\n---\n\n---\n\n{gui.get('error.user_stop')}\n\n---\n\n---\n\n&nbsp;\n\n")
 
             yield (
@@ -160,8 +156,6 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
 
         except Exception as exc:
             code, message = extract_code_and_message(exc)
-            #status_history.append(f"<br><hr/><hr/>{gui_translator['error.error_code']} {code} - {message}<hr/><hr/><br>")
-            #status_history.append(f"\n\n---\n\n---\n\n{gui_translator['error.error_code']} {code} - {message}\n\n---\n\n---\n\n")
             status_history.append(f"\n\n&nbsp;\n\n---\n\n---\n\n{gui.get('error.error_code')} {code} - {message}\n\n---\n\n---\n\n&nbsp;\n\n")
 
             yield (
@@ -197,9 +191,7 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
                     )
 
                     target_lang_dd = gr.Dropdown(
-                        #choices=_languages_list(),
                         multiselect=False,
-                        #value="en",
                         scale=1
                     )
 
