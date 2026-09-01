@@ -108,7 +108,6 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
                         else:
                             status_history.append(message)
                             if status_message["phase"] == "end":
-                                #status_history.append("<hr/>")
                                 status_history.append("\n\n---\n\n&nbsp;\n\n")
 
                         # Yielding the exact tuple structure Gradio expects
@@ -269,24 +268,19 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
             raw_header = request.headers.get("accept-language", "en")
             browser_lang = raw_header.split(",")[0].split("-")[0].split(";")[0].strip().lower()[:2]
 
-            # lang = browser_lang if browser_lang in TRANSLATIONS else "en"
-            # lang_dict = TRANSLATIONS[lang]
-
             gui = UIStringLocalizer(browser_lang)
 
-            # B. Genera automaticamente tutti i gr.update() necessari per la UI
+            # Automatically generates all gr.update() needed for the UI
             updates = []
             for component, config in UI_MAP.items():
                 props = {}
                 for prop_name, translation_key in config.items():
-                    if prop_name == "prefix":  # Salta le proprietà di formattazione interna
+                    if prop_name == "prefix":
                         continue
 
-                    # Prende la stringa tradotta se esiste...
-                    # text = lang_dict.get(translation_key, translation_key)
                     text = gui.get(translation_key)
 
-                    # Se è presente un prefisso (es. per Markdown), lo applica
+                    # If a prefix is present (e.g. for Markdown), it applies it
                     if "prefix" in config:
                         text = f"{config['prefix']}{text}"
 
@@ -294,14 +288,14 @@ def _create_app(agent: ReflexionAgent, concurrency_limit: int) -> gr.Blocks:
 
                 # FIX: If it's the target_lang_dd, also set its current value and localized choices
                 if component == target_lang_dd:
-                    props["value"] = gui.current_language #lang
-                    props["choices"] = gui.languages_list() # _languages_list(lang)
+                    props["value"] = gui.current_language
+                    props["choices"] = gui.languages_list()
                     props["interactive"] = True
 
                 updates.append(gr.update(**props))
 
             # Append the detected language to the end of the updates list
-            updates.append(gui.current_language)   # lang)
+            updates.append(gui.current_language)
 
             return updates
 
